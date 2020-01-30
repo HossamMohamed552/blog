@@ -1,0 +1,56 @@
+[
+  {
+    "id": "1",
+    "imgUrl": "https://picsum.photos/seed/picsum/200/300.jpg",
+    "title": "sports & health",
+    "author": "user",
+    "comments": [
+      {
+        "comment": "comment",
+        "subComments": [
+          {"comment": "comment"},
+          {"comment": "comment 2"}
+        ]
+      },
+      {
+        "comment": "comment",
+        "subComments": [
+          {"comment": "comment"},
+          {"comment": "comment 2"}
+        ]
+      }
+    ]
+  },
+  {
+    "id": "2",
+    "imgUrl": "https://picsum.photos/200/300/?blur.jpg",
+    "title": "movies",
+    "author": "user",
+    "comments": [
+      {
+        "comment": "comment",
+        "subComments": [
+          {
+            "comment": "comment"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "3",
+    "imgUrl": "https://picsum.photos/200/300?grayscale.jpg",
+    "title": "coding",
+    "author": "user",
+    "comments": [
+      {
+        "comment": "comment",
+        "sub": [
+          {
+            "comment": "comment"
+          }
+        ]
+      }
+    ]
+  }
+]

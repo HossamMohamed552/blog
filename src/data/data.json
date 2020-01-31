@@ -6,17 +6,33 @@
     "author": "user",
     "comments": [
       {
+        "id": "1",
         "comment": "comment",
-        "subComments": [
-          {"comment": "comment"},
-          {"comment": "comment 2"}
+        "replyState": false,
+        "reply": [
+          {
+            "id": "1",
+            "comment": "comment"
+          },
+          {
+            "id": "2",
+            "comment": "comment 2"
+          }
         ]
       },
       {
+        "id": "2",
         "comment": "comment",
-        "subComments": [
-          {"comment": "comment"},
-          {"comment": "comment 2"}
+        "replyState": false,
+        "reply": [
+          {
+            "id": "1",
+            "comment": "comment"
+          },
+          {
+            "id": "2",
+            "comment": "comment 2"
+          }
         ]
       }
     ]
@@ -28,9 +44,12 @@
     "author": "user",
     "comments": [
       {
+        "id": "1",
         "comment": "comment",
-        "subComments": [
+        "replyState": false,
+        "reply": [
           {
+            "id": "1",
             "comment": "comment"
           }
         ]
@@ -44,9 +63,12 @@
     "author": "user",
     "comments": [
       {
+        "id": "1",
         "comment": "comment",
-        "sub": [
+        "replyState": false,
+        "reply": [
           {
+            "id": "1",
             "comment": "comment"
           }
         ]

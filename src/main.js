@@ -5,8 +5,9 @@ import store from './store'
 import bootstrap from "bootstrap/dist/css/bootstrap.min.css";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all";
+import VAnimateCss from 'v-animate-css';
 Vue.config.productionTip = false;
-
+Vue.use(VAnimateCss);
 new Vue({
   router,
   store,

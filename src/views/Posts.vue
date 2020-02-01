@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="posts fix">
         <div class="container">
             <div class="row">
                 <slot v-for="post in postsData" >
@@ -29,11 +29,7 @@
 
         },
         methods: {
-            goToPagePost(id) {
-                console.log("clicked");
-                console.log(id);
-                // this.$router.to({path: `post-detail/${id}`})
-            }
+
         }
     }
 </script>

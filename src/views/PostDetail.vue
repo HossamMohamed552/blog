@@ -1,25 +1,44 @@
 <template>
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <img :src="filterDate[0].imgUrl" class="">
-                <h5>{{filterDate[0].title}}</h5>
+    <div class="fix">
+        <div class="container">
+            <!--warning message -->
+            <div class="alert">
+                comment shouldn't have "xmen ,flash or tester"
+            </div>
+            <!--/-->
+            <div class="row">
                 <div class="col-12">
-                    <div v-for="mainComment in filterDate[0].comments" :key="mainComment.id">
-                        {{mainComment.id}}
-                        <p class="main_comment">{{mainComment.comment}}</p>
-                        <div><span class="reply" @click="mainComment.replyState = true">reply</span></div>
-                        <div v-for="subComment in mainComment.reply" class="replies" :key="subComment.id">
-                            <p class="reply_comment">sub - {{subComment.comment}}</p>
-                        </div>
-                        <transition enter-active-class="fadeInDown">
+                    <!-- heading-->
+                    <div class="col-12 text-center text-capitalize my-2">
+                        <h5>{{filterDate[0].title}}</h5>
+                    </div>
+                    <!--/-->
+                    <!--image of post-->
+                    <div class="col-12">
+                        <img :src="filterDate[0].imgUrl" class="img-fluid">
+                    </div>
+                    <!--/-->
+                    <div class="col-12">
+                        <!--loop throw all comments in data.json -->
+                        <div v-for="mainComment in filterDate[0].comments" :key="mainComment.id">
+                            <p class="main_comment">{{mainComment.comment}}</p>
+                            <div><span class="reply" @click="mainComment.replyState = true">reply</span></div>
+                            <!--loop trow all replies in one comment -->
+                            <div v-for="subComment in mainComment.reply" class="replies" :key="subComment.id">
+                                <p class="reply_comment">{{subComment.comment}}</p>
+                            </div>
+                            <!--add new reply -->
+                            <transition enter-active-class="fadeInDown">
                                 <textarea placeholder="enter you'r reply"
                                           @keyup.enter="addReply($event,mainComment.reply)"
                                           v-if="mainComment.replyState"
                                           class="reply_comment"></textarea>
-                        </transition>
+                            </transition>
+                        </div>
+                        <!--add new comment -->
+                        <textarea v-model="comment" placeholder="enter you'r comment"
+                                  @keyup.enter="addComment"></textarea>
                     </div>
-                    <textarea v-model="comment" placeholder="enter you'r comment" @keyup.enter="addComment"></textarea>
                 </div>
             </div>
         </div>
@@ -28,6 +47,7 @@
 
 <script>
     import data from "../data/data"
+    import $ from "jquery";
 
     export default {
         name: "PostDetail",
@@ -47,19 +67,44 @@
             }
         },
         methods: {
+            warningFunc() {
+                $(".alert").animate({
+                    left: "1%"
+                }, 500).delay(2000).animate({
+                    left: "-30%"
+                }, 800)
+            },
             addComment() {
-                this.filterDate[0].comments.push({"comment": this.comment, "reply": []});
-                this.comment = "";
-                console.log(this.filterDate[0].comments);
+                /* add comment without specific words */
+                if (this.comment.includes("xmen") || this.comment.includes("flash") || this.comment.includes("tester")) {
+                    this.warningFunc();
+                } else {
+                    this.filterDate[0].comments.push(
+                        {
+                            "comment": this.comment,
+                            "replyState": false,
+                            "reply": []
+                        }
+                    );
+                    /* reset text area */
+                    this.comment = "";
+                }
+
             },
             addReply($event, replayArray) {
+                /* add comment without specific words */
                 let replayComment = $event.target.value;
-                replayArray.push({"comment": replayComment});
-                console.log(replayArray);
+                if (replayComment.includes("xmen") || replayComment.includes("flash") || replayComment.includes("tester")) {
+                    this.warningFunc();
+                } else {
+                    replayArray.push({
+                        "comment": replayComment
+                    });
+                    $event.target.value = "";
+                }
             }
         },
         created() {
-            console.log(this.filterDate[0].comments);
         }
     }
 </script>
@@ -69,6 +114,9 @@
         width: 100%;
         height: 300px;
         object-fit: cover;
+        border-radius: 5px;
+        display: block;
+        margin: 1.5rem 0;
     }
 
     textarea {
@@ -80,8 +128,12 @@
         outline: none;
         overflow: hidden;
         border-color: transparent;
-        box-shadow: 0 0 3px 1px rgba(0, 153, 204, 0.49);
         margin: 2rem 0;
+        transition: all ease-in-out .2s;
+
+        &:focus {
+            box-shadow: 0 0 3px 1px rgba(0, 153, 204, 0.49);
+        }
     }
 
     .main_comment {
@@ -114,5 +166,16 @@
         color: #333;
         border-radius: 15px;
         padding: 12px;
+    }
+
+    .alert {
+        position: fixed;
+        top: 5%;
+        left: -30%;
+        z-index: 2;
+        width: 25%;
+        background: rgba(231, 11, 11, 0.92);
+        color: #fff;
+        box-shadow: 0 0 5px 1px #3333338c;
     }
 </style>
